@@ -3,6 +3,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  --primary-color: #fafafa;
+  --secondary-color: #fffef9;
+  --text-color: #2c3e50;
 }
 
 @theme inline {
@@ -15,12 +19,18 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #fffef9;
   }
 }
 
 body {
-  background: var(--foreground);
+  background: var(--primary-color);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.nav-wrapper,
+.extended-menu {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
 }

@@ -1,0 +1,107 @@
+{
+  "categories": [
+    {
+      "name": "Mens",
+      "subcategories": [
+        {
+          "name": "Tops",
+          "items": ["T-shirt", "Tank Top", "Linen Shirt", "Short Sleeve Shirt"]
+        },
+        {
+          "name": "Bottoms",
+          "items": [
+            "Beach Shorts",
+            "Casual Shorts",
+            "Linen Pants",
+            "Relaxed Fit Pants"
+          ]
+        },
+        {
+          "name": "Swimwears",
+          "items": ["Boardshorts", "Quick-Dry Swim Shorts"]
+        },
+        {
+          "name": "Accesories",
+          "items": ["Bucket Hat", "Sunglasses"]
+        }
+      ]
+    },
+    {
+      "name": "Womans",
+      "subcategories": [
+        {
+          "name": "Tops",
+          "items": ["Crop Top", "Tube Top", "Tank Top", "Halter Top"]
+        },
+        {
+          "name": "Beachwear",
+          "items": ["Beach Dress", "Mini Dress", "Tunic", "Wrap Dress"]
+        },
+        {
+          "name": "Swimwear",
+          "items": [
+            "Bikini Set",
+            "Long Sleeve Swimsuit",
+            "Surf Suit",
+            "Cut-Out Swimsuit"
+          ]
+        },
+        {
+          "name": "Footwear",
+          "items": ["Flip Flops", "Beach Slippers", "Espadrilles"]
+        },
+        {
+          "name": "Accesories",
+          "items": [
+            "Straw Hat",
+            "Sunglasses",
+            "Sunglasses",
+            "Beach Towel",
+            "Anklet"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Accesories",
+      "subcategories": [
+        {
+          "name": "Headwear",
+          "items": ["Bucket Hat", "Straw Hat", "Wide Brim Hat", "Visor Hat"]
+        },
+        {
+          "name": "Eyewear",
+          "items": [
+            "Sunglasses",
+            "Polarized Sunglasses",
+            "Fashion Sunglasses",
+            "Sport Sunglasses"
+          ]
+        },
+        {
+          "name": "Bags",
+          "items": [
+            "Beach Tote Bag",
+            "Canvas Tote Bag",
+            "Waist Bag",
+            "Waterproof Dry Bag",
+            "Sling Bag"
+          ]
+        },
+        {
+          "name": "Footwear",
+          "items": [
+            "Sandal Straps",
+            "Beach Slippers",
+            "Foot Spray",
+            "Foot Towel"
+          ]
+        },
+        {
+          "name": "Jewelry",
+          "items": ["Anklet", "Beaded Bracelet", "Shell Necklace", "Headbands"]
+        }
+      ]
+    }
+  ]
+}
