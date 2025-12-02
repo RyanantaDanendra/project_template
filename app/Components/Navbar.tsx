@@ -8,13 +8,13 @@ import gsap from "gsap";
 //logo source
 import Logo from "../../public/Assets/logo.png";
 import { start } from "repl";
+import { TIMEOUT } from "dns";
 
 const Navbar = () => {
   const [isDesktop, setIsDesktop] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const [layananDropDown, setLayananDropDOwn] = useState(false);
-  const [mediaDropdown, setMediaDropdown] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [activeDropDown, setActiveDropDown] = useState("");
 
   useEffect(() => {
     // set to false if width is less than 1000
@@ -22,116 +22,130 @@ const Navbar = () => {
       setIsDesktop(window.innerWidth >= 1000);
     };
 
+    let timeoutId: number;
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(checkWidth, 150);
+    };
+
     // calls the function
     checkWidth();
 
     // add resize listener
-    window.addEventListener("resize", checkWidth);
+    window.addEventListener("resize", handleResize);
 
     // remove event listener
-    return () => window.removeEventListener("resize", checkWidth);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("resize", checkWidth);
+    };
   }, []);
 
   const openMenu = () => {
-    const menu = document.getElementById("menu-wrapper");
-
-    if (!isOpen) {
-      gsap.to(menu, {
-        y: 368,
-        opacity: 1,
-      });
-      setIsOpen(true);
-    } else {
-      gsap.to(menu, {
-        y: 0,
-        opacity: 1,
-        delay: 0.4,
-      });
-      if (layananDropDown || mediaDropdown) {
-        setLayananDropDOwn(false);
-        setMediaDropdown(false);
-        openDropdown();
-      }
-      setIsOpen(false);
-    }
+    setIsOpen(!isOpen);
+    if (isOpen) setActiveDropDown("");
   };
 
-  const openDropdown = () => {
-    const dropdown = document.getElementById("menu-dropdown");
-    const links = document.querySelectorAll(".link");
-    const linkDropdown = document.getElementById("link-dropdown");
-
-    if (mediaDropdown) {
-      setMediaDropdown(false);
-      openMediaDropdown();
-    }
-
-    if (!layananDropDown) {
-      gsap.to(dropdown, {
-        height: 44.8,
-      });
-      gsap.to(links, {
-        height: 44.8,
-      });
-      gsap.to(links[1], {
-        marginTop: 180,
-      });
-      setLayananDropDOwn(true);
-    } else {
-      gsap.to(dropdown, {
-        height: 44.8,
-        alignItems: "center",
-      });
-      gsap.to(links[1], {
-        marginTop: 0,
-      });
-      setLayananDropDOwn(false);
-    }
-  };
-
-  const openMediaDropdown = () => {
-    const dropdown = document.getElementById("media-dropdown");
-    const links = document.querySelectorAll(".link");
-    const linkDropdown = document.getElementById("link-dropdown");
-
-    if (layananDropDown) {
-      setLayananDropDOwn(false);
-      openDropdown();
-    }
-
-    if (!mediaDropdown) {
-      gsap.to(dropdown, {
-        height: 44.8,
-      });
-      gsap.to(links, {
-        height: 44.8,
-      });
-      gsap.to(links[3], {
-        marginTop: 89,
-      });
-      setMediaDropdown(true);
-    } else {
-      gsap.to(dropdown, {
-        height: 44.8,
-        alignItems: "center",
-      });
-      gsap.to(links[3], {
-        marginTop: 0,
-      });
-      setMediaDropdown(false);
-    }
+  const toggleDropDwon = (dropdown: string) => {
+    setActiveDropDown(activeDropDown === dropdown ? "" : dropdown);
   };
 
   if (isDesktop) {
     return (
-      <nav className="w-screen h-32 bg-white">
-        <h1>hello world</h1>
+      <nav className="fixed top-0">
+        <div className="nav-wrapper text-black w-screen h-24 flex justify-between items-center pe-4 shadow-gray-400 shadow-sm bg-white">
+          <Image src={Logo} alt="Logo" className="w-32 h-32" />
+          <div
+            className="links flex gap-4"
+            onMouseEnter={() => setActiveDropDown("layanan")}
+            onMouseLeave={() => setActiveDropDown("")}
+          >
+            <Link href="">
+              <p>Home</p>
+            </Link>
+            <Link href="" className=" flex gap-1">
+              <p>Layanan Kami</p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 320 512"
+                className="w-3"
+              >
+                <path
+                  id="iconPath"
+                  className="fill-black"
+                  d="M140.3 376.8c12.6 10.2 31.1 9.5 42.8-2.2l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301.4 192 288.5 192l-256 0c-12.9 0-24.6 7.8-29.6 19.8S.7 237.5 9.9 246.6l128 128 2.4 2.2z"
+                />
+              </svg>
+              <div
+                className={`extended-menu w-54 bg-[#015fc4] absolute top-[60px] right-48 text-white ${
+                  activeDropDown == "layanan" ? `visible` : `invisible`
+                }`}
+              >
+                <div className=" h-[44.8px] hover:bg-[#feda00] hover:text-black flex items-center">
+                  <Link href="" className="ms-5">
+                    Manajemen Tambang
+                  </Link>
+                </div>
+                <div className=" h-[44.8px] hover:bg-[#feda00] hover:text-black flex items-center">
+                  <p className="ms-5">Kegiatan Eksplorasi</p>
+                </div>
+                <div className=" h-[44.8px] hover:bg-[#feda00] hover:text-black flex items-center">
+                  <p className="ms-5">Lingkungan</p>
+                </div>
+                <div className=" h-[44.8px] hover:bg-[#feda00] hover:text-black flex items-center">
+                  <p className="ms-5">Air Tanah</p>
+                </div>
+              </div>
+            </Link>
+            <Link href="">
+              <p>Tentang Kami</p>
+            </Link>
+            <Link
+              href=""
+              className="flex gap-1"
+              onMouseEnter={() => setActiveDropDown("media")}
+              onMouseLeave={() => setActiveDropDown("")}
+            >
+              <p>Media</p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 320 512"
+                className="w-3"
+              >
+                <path
+                  id="iconPath"
+                  className="fill-black"
+                  d="M140.3 376.8c12.6 10.2 31.1 9.5 42.8-2.2l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301.4 192 288.5 192l-256 0c-12.9 0-24.6 7.8-29.6 19.8S.7 237.5 9.9 246.6l128 128 2.4 2.2z"
+                />
+              </svg>
+              <div
+                className={`extended-menu w-48 absolute top-[60px] right-5 bg-[#015fc4] text-white ${
+                  activeDropDown == "media" ? `visible` : `invisible`
+                }`}
+              >
+                <div className=" h-[44.8px] hover:bg-[#feda00] hover:text-black flex items-center">
+                  <Link href="" className="ms-5">
+                    Manajemen Tambang
+                  </Link>
+                </div>
+                <div className=" h-[44.8px] hover:bg-[#feda00] hover:text-black flex items-center">
+                  <p className="ms-5">Kegiatan Eksplorasi</p>
+                </div>
+              </div>
+            </Link>
+            <Link href="">
+              <p>Kontak</p>
+            </Link>
+          </div>
+        </div>
       </nav>
     );
   } else {
     return (
-      <nav className="fixed top-0 ">
-        <div className="nav-wrapper w-screen flex justify-between pe-4 shadow-gray-400 shadow-sm bg-white">
+      <nav className="fixed top-0">
+        <div
+          className={`nav-wrapper w-screen flex justify-between pe-4 shadow-gray-400 shadow-sm bg-white`}
+        >
           <Image src={Logo} alt="Logo" width={80} height={80} />
           <button onClick={openMenu}>
             <svg
@@ -146,13 +160,13 @@ const Navbar = () => {
         {/* menu list */}
         <div
           id="menu-wrapper"
-          className={`menu-wrapper w-screen ${
-            layananDropDown
+          className={`menu-wrapper w-screen duration-200 ease-out transition-all -z-12 ${
+            activeDropDown == "layanan"
               ? `h-[403.2px]`
-              : mediaDropdown
+              : activeDropDown == "media"
               ? `h-[313.6px]`
               : `h-56`
-          } bg-[#015fc4] absolute -top-72`}
+          } bg-[#015fc4] absolute ${isOpen ? `top-20` : `-top-56`}`}
         >
           <div className="link w-full h-[44.8px] flex items-center hover:bg-[#feda00] hover:text-black transition-all duration-100 ease-out ">
             <Link href="">
@@ -161,7 +175,7 @@ const Navbar = () => {
           </div>
           <div
             id="menu-dropdown"
-            className={`w-full h-[44.8px] flex items-center hover:bg-[#feda00] hover:text-black transition-all duration-100 ease-out gap-2 relative`}
+            className={`w-full h-[44.8px] flex items-center  hover:bg-[#feda00] hover:text-black transition-all duration-100 ease-out gap-2 relative`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
@@ -169,7 +183,7 @@ const Navbar = () => {
               <p className="ms-4">Layanan Kami</p>
             </Link>
             <svg
-              onClick={openDropdown}
+              onClick={() => toggleDropDwon("layanan")}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 320 512"
               className="w-3"
@@ -181,8 +195,8 @@ const Navbar = () => {
               />
             </svg>
             <div
-              className={`extended-menu absolute top-[45px] text-white ${
-                layananDropDown ? `visible` : `invisible`
+              className={`extended-menu bg-[#015fc4] absolute top-[45px] text-white ${
+                activeDropDown == "layanan" ? `visible` : `invisible`
               }`}
             >
               <div className="w-screen h-[44.8px] hover:bg-[#feda00] hover:text-black flex items-center">
@@ -201,7 +215,11 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-          <div className="link w-full h-[44.8px] flex items-center hover:bg-[#feda00] hover:text-black transition-all duration-100 ease-out">
+          <div
+            className={`link w-full h-[44.8px] flex items-center hover:bg-[#feda00] hover:text-black transition-all duration-100 ease-out ${
+              activeDropDown === "layanan" ? `mt-[179.2px]` : `mt-0`
+            }`}
+          >
             <Link href="">
               <p className="ms-4">Tentang Kami</p>
             </Link>
@@ -214,7 +232,7 @@ const Navbar = () => {
               <p className="ms-4">Media</p>
             </Link>
             <svg
-              onClick={openMediaDropdown}
+              onClick={() => toggleDropDwon("media")}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 320 512"
               className="w-3"
@@ -226,7 +244,7 @@ const Navbar = () => {
             </svg>
             <div
               className={`extended-menu absolute top-[45px] text-white ${
-                mediaDropdown ? `visible` : `invisible`
+                activeDropDown == "media" ? `visible` : `invisible`
               }`}
             >
               <div className="w-screen h-[44.8px] hover:bg-[#feda00] hover:text-black flex items-center">
@@ -239,7 +257,11 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-          <div className="link w-full h-[44.8px] flex items-center hover:bg-[#feda00] hover:text-black transition-all duration-100 ease-out">
+          <div
+            className={`link w-full h-[44.8px] flex items-center hover:bg-[#feda00] hover:text-black transition-all duration-100 ease-out ${
+              activeDropDown == "media" ? `mt-[89.6px]` : `mt-0`
+            }`}
+          >
             <Link href="">
               <p className="ms-4">Kontak</p>
             </Link>
