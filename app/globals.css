@@ -25,12 +25,14 @@
 
 body {
   background: var(--primary-color);
-  color: var(--foreground);
+  color: var(--text-color);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
 
 .nav-wrapper,
-.extended-menu {
+.extended-menu,
+.menu-wrapper {
   background-color: var(--secondary-color);
   color: var(--text-color);
 }

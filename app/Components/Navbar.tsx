@@ -20,17 +20,6 @@ const Navbar = () => {
 
   const categories = data.categories;
 
-  const menCategories = ["Tops", "Bottoms", "Swimwear", "Accesories"];
-
-  const mensTops = ["T-Shirt", "Tank Top", "Linen Shirt", "Short Sleeve Shirt"];
-
-  const mensBottoms = [
-    "Beach Shorts",
-    "Casual Shorts",
-    "Linen Pants",
-    "Relaxed Fit Pants",
-  ];
-
   useEffect(() => {
     // set to false if width is less than 1000
     const checkWidth = () => {
@@ -72,13 +61,14 @@ const Navbar = () => {
           <Image src={Logo} alt="Logo" className="w-32 h-32" />
           <div className="links flex gap-4 items-center">
             {categories.map((category, index) => (
-              <Link
-                href=""
-                className=" flex gap-1 h-24 items-center"
+              <div
+                className="flex gap-1 h-24 items-center"
                 onMouseEnter={() => setActiveDropDown(category.name)}
                 onMouseLeave={() => setActiveDropDown("")}
               >
-                <p>{category.name}</p>
+                <Link key={index} href="">
+                  <p>{category.name}</p>
+                </Link>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 320 512"
@@ -91,7 +81,7 @@ const Navbar = () => {
                   />
                 </svg>
                 <div
-                  className={`extended-menu w-screen absolute top-[98px] flex gap-5 justify-center left-0 transition-all duration-200 ease-out mt-3 ${
+                  className={`extended-menu w-screen absolute top-[98px] flex gap-5 justify-center left-0 transition-all duration-200 ease-out pt-3 ${
                     activeDropDown == category.name
                       ? `visible opacity-100 h-[179.2px]`
                       : `invisible opacity-0 h-0`
@@ -100,7 +90,7 @@ const Navbar = () => {
                 >
                   <div className="h-full flex gap-6">
                     {category.subcategories.map((subcategory, index) => (
-                      <div className="flex flex-col gap-2">
+                      <div key={index} className="flex flex-col gap-2">
                         <Link href="" className="ms-5 font-bold">
                           {subcategory.name}
                         </Link>
@@ -116,7 +106,7 @@ const Navbar = () => {
                     ))}
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
           <div className="links flex gap-4">
@@ -183,8 +173,11 @@ const Navbar = () => {
             >
               {categories
                 .find((cat) => cat.name == "Mens")
-                ?.subcategories.map((sub) => (
-                  <div className="w-screen h-[44.8px] hover:bg-[#feda00] hover:text-black flex items-center">
+                ?.subcategories.map((sub, index) => (
+                  <div
+                    key={index}
+                    className="w-screen h-[44.8px] hover:bg-[#feda00] hover:text-black flex items-center"
+                  >
                     <Link href="" className="ms-5">
                       {sub.name}
                     </Link>
@@ -222,8 +215,11 @@ const Navbar = () => {
             >
               {categories
                 .find((cat) => cat.name == "Womans")
-                ?.subcategories.map((sub) => (
-                  <div className="w-screen h-[44.8px] hover:bg-[#feda00] hover:text-black flex items-center">
+                ?.subcategories.map((sub, index) => (
+                  <div
+                    key={index}
+                    className="w-screen h-[44.8px] hover:bg-[#feda00] hover:text-black flex items-center"
+                  >
                     <Link href="" className="ms-5">
                       {sub.name}
                     </Link>
@@ -258,8 +254,11 @@ const Navbar = () => {
             >
               {categories
                 .find((cat) => cat.name == "Accesories")
-                ?.subcategories.map((sub) => (
-                  <div className="w-screen h-[44.8px] hover:bg-[#feda00] hover:text-black flex items-center">
+                ?.subcategories.map((sub, index) => (
+                  <div
+                    key={index}
+                    className="w-screen h-[44.8px] hover:bg-[#feda00] hover:text-black flex items-center"
+                  >
                     <Link href="" className="ms-5">
                       {sub.name}
                     </Link>

@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import Navbar from "./Components/Navbar";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Sora, DM_Sans } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const DMSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
 });
 
@@ -29,7 +29,7 @@ export default function RootLayout({
         <Navbar />
       </header>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}
+        className={`${DMSans.variable} ${sora.variable} antialiased bg-white`}
       >
         {children}
       </body>
